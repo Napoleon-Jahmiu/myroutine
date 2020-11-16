@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css">
+    <title>Daily Routine</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Add Your Routine</h1>
+
+        <hr>
+        <form id="routine-form">
+
+            <div>
+                <label for="serial Number">Number</label>
+                <input type="number" id="no" class="u-full-width">
+            </div>
+
+            <div>
+                <label for="task">Task</label>
+                <input type="text" id="task" class="u-full-width">
+            </div>
+
+            <div>
+                <label for="category">Category</label>
+                <input type="text" id="category" class="u-full-width">
+            </div>
+
+            <div>
+                <label for="time">Time</label>
+                <input type="time" id="time" class="u-full-width">
+            </div>
+
+            <input type="submit" id="submit" class="u-full-width">
+        </form>
+
+        <hr>
+
+        <table class="u-full-width">
+            <thead>
+                <tr>
+                    <th>S/N</th>
+                    <th>Task</th>
+                    <th>Category</th>
+                    <th>Time</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="task-list"></tbody>
+        </table>
+
+    </div>
+
+    <script src="app.js"></script>
+    
+</body>
+</html>

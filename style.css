@@ -1,0 +1,23 @@
+body, html {
+    color: #fff;
+    background-color: #333;
+    line-height: 1.5;
+}
+
+.container {
+    color: #fff;
+}
+
+.success .error {
+    color: #fff;
+    padding: 5px;
+    margin: 5px 0 15px 0;
+}
+
+.success {
+    background: green;
+}
+
+.error {
+    background: red;
+}
