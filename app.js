@@ -28,6 +28,29 @@ UI.prototype.addRoutineToList = function(routine) {
     list.appendChild(row);
 }
 
+UI.prototype.showAlert = function(message, className) {
+    // create the div element
+    const div = document.createElement('div');
+
+    // Add Classes
+    div.className = `alert ${className}`;
+
+    // Create the message in the div (Add text)
+    div.appendChild(document.createTextNode(message));
+
+    // Get the parent Element where the div will appear
+    const container = document.querySelector('.container');
+    // Get the form Element where the div will be placed before 
+    const routineForm = document.querySelector('#routine-form');
+    // Insert the div before the routine form in the container
+    container.insertBefore(div, routineForm);
+
+    // Timeout
+    setTimeout(function() {
+        document.querySelector('.alert').remove()
+    }, 3000)
+}
+
 // CLEAR FIELDS
 UI.prototype.clearFields = function(e) {
         document.getElementById('no').value = '';
@@ -52,11 +75,21 @@ document.getElementById('routine-form').addEventListener('submit', function(e) {
         // Instantiate a new UI
         const ui = new UI()
 
-        // Add Routine to list 
+        if (no === ''|| task === '' || category === '' || time === '' ) {
+            ui.showAlert('Please fill in all fields', 'error') 
+        } else {
+            // Add Routine to list
         ui.addRoutineToList(routine);
+
+            // Add Book successfully
+        ui.showAlert('Task Added!', 'success')
 
         // clear Fields
         ui.clearFields();
+
+        }
+
+        
 
         e.preventDefault();
 })
