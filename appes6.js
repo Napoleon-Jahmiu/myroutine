@@ -1,7 +1,7 @@
 class Routine {
-    constructor(no, task, category, time1, time2){
+    constructor(no, routine, category, time1, time2){
         this.no = no;
-        this.task = task;
+        this.routine = routine;
         this.category = category;
         this.time1 = time1;
         this.time2 = time2;
