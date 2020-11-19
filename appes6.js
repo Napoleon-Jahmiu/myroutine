@@ -97,7 +97,6 @@ class Store {
 
             ui.addRoutineToList(routine);
         });
-        
 
     }
 
@@ -111,13 +110,19 @@ class Store {
     }
 
     // Remove Routine completely from the local Storage when deleted and even after reloads
-    static removeRoutine() {
+    static removeRoutine(task) {
+        const routines = Store.getRoutines();
+        // Loop through using the for each loop
+        routines.forEach(function(routine, index) {
+            if(routine.task === task) {
+                // Splice Out
+                routines.splice(index, 1);
+            }
+        });
 
+        localStorage.setItem('routines', JSON.stringify(routines));
     }
 }
-
-
-
 
 // Load DOM COntent
 document.addEventListener('DOMContentLoaded', Store.displayRoutines)
@@ -155,7 +160,8 @@ formRoutine.addEventListener('submit', function(e) {
 
     
         e.preventDefault();
-})
+});
+
 
 
 // Event Listener for Delete Book
@@ -166,6 +172,10 @@ listRoutine.addEventListener('click', function(e){
 
     // Delete Book
     ui.deleteRoutine(e.target);
+
+    // Delete Routine from Local Storage
+    Store.removeRoutine(e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.textContent);
+
     // show Alert
     ui.showAlert('Routine Removed!', 'success');
 
