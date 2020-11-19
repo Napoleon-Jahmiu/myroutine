@@ -1,7 +1,7 @@
 // ROUTINE CONSTRUCTOR
-function Routine(no, task, category, time1, time2) {
+function Routine(no, routine, category, time1, time2) {
     this.no = no;
-    this.task = task;
+    this.routine = routine;
     this.category = category;
     this.time1 = time1;
     this.time2 = time2;
@@ -20,7 +20,7 @@ UI.prototype.addRoutineToList = function(routine) {
     // insert cols
     row.innerHTML = 
     `<td>${routine.no}</td>
-    <td>${routine.task}</td>
+    <td>${routine.routine}</td>
     <td>${routine.category}</td>
     <td>${routine.time1}</td>
     <td>${routine.time2}</td>
@@ -62,7 +62,7 @@ UI.prototype.deleteBook = function(target) {
 // CLEAR FIELDS
 UI.prototype.clearFields = function(e) {
         document.getElementById('no').value = '';
-        document.getElementById('task').value =  '';
+        document.getElementById('routine').value =  '';
         document.getElementById('category').value = '';
         document.getElementById('time1').value = '';
         document.getElementById('time2').value = '';
@@ -73,22 +73,22 @@ const formRoutine = document.getElementById('routine-form');
 formRoutine.addEventListener('submit', function(e) {
 
     const no = document.getElementById('no').value,
-        task = document.getElementById('task').value,
+        routine = document.getElementById('routine').value,
         category = document.getElementById('category').value,
         time1 = document.getElementById('time1').value,
         time2 = document.getElementById('time2').value;
     
         // instantiate a new Routine
-        const routine = new Routine(no, task, category, time1, time2);
+        const outline = new Routine(no, routine, category, time1, time2);
  
         // Instantiate a new UI
         const ui = new UI()
 
-        if (no === ''|| task === '' || category === '' || time1 === '' || time2 === '' ) {
+        if (no === ''|| routine === '' || category === '' || time1 === '' || time2 === '' ) {
             ui.showAlert('Please fill in all fields', 'error') 
         } else {
             // Add Routine to list
-        ui.addRoutineToList(routine);
+        ui.addRoutineToList(outline);
 
             // Add Book successfully
         ui.showAlert('Routine Added!', 'success')
