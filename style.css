@@ -28,3 +28,13 @@ body, html {
 .error {
     background: red;
 }
+
+h5 {
+    font-weight: bolder;
+}
+
+.available ul ol {
+    list-style-type: disc;
+    color: #fff;
+    display: inline;
+}
