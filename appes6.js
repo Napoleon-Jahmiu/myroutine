@@ -1,7 +1,7 @@
 class Routine {
-    constructor(no, routine, category, time1, time2){
+    constructor(no, task , category, time1, time2){
         this.no = no;
-        this.routine = routine;
+        this.task = task;
         this.category = category;
         this.time1 = time1;
         this.time2 = time2;
@@ -18,7 +18,7 @@ class UI {
         // insert cols
         row.innerHTML = 
         `<td>${routine.no}</td>
-        <td>${routine.routine}</td>
+        <td>${routine.task}</td>
         <td>${routine.category}</td>
         <td>${routine.time1}</td>
         <td>${routine.time2}</td>
@@ -63,7 +63,7 @@ class UI {
     // Clear Fields
     clearFields() {
     document.getElementById('no').value = '';
-    document.getElementById('routine').value =  '';
+    document.getElementById('task').value =  '';
     document.getElementById('category').value = '';
     document.getElementById('time1').value = '';
     document.getElementById('time2').value = '';
@@ -71,27 +71,79 @@ class UI {
     
 }
 
+// Store (Persist) To Local Storage
+
+class Store {
+
+    // get Routine from Local Storage
+    static getRoutines() {
+        let routines;
+        if(localStorage.getItem('routines') === null) {
+            routines = [];
+        } else {
+            routines = JSON.parse(localStorage.getItem('routines'));
+        }
+
+        return routines;
+    }
+
+    // Display Routines after the browser is being Loaded
+    static displayRoutines() {
+        const routines = Store.getRoutines();
+
+        routines.forEach(function(routine){
+            // instantiate the ui
+            const ui = new UI;
+
+            ui.addRoutineToList(routine);
+        });
+        
+
+    }
+
+    // Add Routine to Local Storage 
+    static addRoutine(routine) {
+        const routines = Store.getRoutines();
+
+        routines.push(routine);
+
+        localStorage.setItem('routines', JSON.stringify(routines));
+    }
+
+    // Remove Routine completely from the local Storage when deleted and even after reloads
+    static removeRoutine() {
+
+    }
+}
+
+
+
+
+// Load DOM COntent
+document.addEventListener('DOMContentLoaded', Store.displayRoutines)
 // Add Event Listener for add routine
 const formRoutine = document.getElementById('routine-form');
 formRoutine.addEventListener('submit', function(e) {
 
     const no = document.getElementById('no').value,
-        routine = document.getElementById('routine').value,
+        task = document.getElementById('task').value,
         category = document.getElementById('category').value,
         time1 = document.getElementById('time1').value,
         time2 = document.getElementById('time2').value;
     
         // instantiate a new Routine
-        const outline = new Routine(no, routine, category, time1, time2);
+        const routine = new Routine(no, task, category, time1, time2);
  
         // Instantiate a new UI
         const ui = new UI()
 
-        if (no === ''|| routine === '' || category === '' || time1 === '' || time2 === '' ) {
+        if (no === ''|| task === '' || category === '' || time1 === '' || time2 === '' ) {
             ui.showAlert('Please fill in all fields', 'error') 
         } else {
             // Add Routine to list
-        ui.addRoutineToList(outline);
+        ui.addRoutineToList(routine);
+
+        Store.addRoutine(routine);
 
             // Add Book successfully
         ui.showAlert('Routine Added!', 'success')
@@ -113,9 +165,10 @@ listRoutine.addEventListener('click', function(e){
     const ui = new UI();
 
     // Delete Book
-    ui.deleteBook(e.target);
+    ui.deleteRoutine(e.target);
     // show Alert
     ui.showAlert('Routine Removed!', 'success');
 
     e.preventDefault();
 });
+
