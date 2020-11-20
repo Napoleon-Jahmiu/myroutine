@@ -1,3 +1,29 @@
+function showTime() {
+    var date = new Date();
+    var  h = date.getHours();
+    var  m = date.getMinutes();
+    var s = date.getSeconds();
+    var session = "AM";
+
+    if (h > 12) {
+        h = h -12;
+        session = "PM";
+    }
+
+    h = (h < 10) ? "0" + h : h;
+    m = (m < 10) ? "0" + m : m;
+    s = (s < 10) ? "0" + s : s;
+
+    const time = h + ":" + m + ":" + s + " " + session;
+
+    document.getElementById('clockDisplay').innerHTML = time;
+    document.getElementById('clockDisplay').textContent = time;
+
+    setTimeout(showTime, 1000);
+}
+
+showTime();
+
 class Routine {
     constructor(no, task , category, time1, time2){
         this.no = no;
@@ -18,7 +44,7 @@ class UI {
         // insert cols
         row.innerHTML = 
         `<td>${routine.no}</td>
-        <td>${routine.task}</td>
+        <td>${routine.task}</td
         <td>${routine.category}</td>
         <td>${routine.time1}</td>
         <td>${routine.time2}</td>
